@@ -13,7 +13,7 @@ log = logging.getLogger(__name__)
 class MenuController(BaseController):
 
     def index(self):
-        c.chars = Session.query(Character).all()
+        c.chars = sorted(Session.query(Character).all(), key=lambda char: char.name.lower())
         
         return render('index.html')
 
