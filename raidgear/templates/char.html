@@ -1,0 +1,144 @@
+<html xmlns:py="http://genshi.edgewall.org/"
+      xmlns:i18n="http://genshi.edgewall.org/i18n"
+      xmlns:xi="http://www.w3.org/2001/XInclude" py:strip="">
+
+      <select py:match="select" py:attrs="select('@*')"
+          py:with="select_name = str(select('@name'))"
+          py:content="select('option|optgroup')" />
+
+      <option py:match="select//option" py:attrs="select('@*')"
+          py:with="sel_value = c.form.get(select_name)"
+          selected="${sel_value and (str(select('@value')) == sel_value) or None}"
+          py:content="select('text()')" />
+
+      <input py:match="input[@type='checkbox']" py:attrs="select('@*')"
+          checked="${c.form.get(str(select('@name')))}" />
+
+    <py:def function="gear_select(equipped)">
+        <div>
+          <label class="equip_label">${equipped.name()}</label>
+          <select class="equip_select" name="equip_${equipped.position()}" id="equip_${equipped.position()}">
+              <option py:for="g in c.gear" value="${g.id}">${g.describe()}</option>
+          </select>
+        </div>
+    </py:def>
+
+    <py:def function="footer()" />
+
+    <py:def function="content()">
+          <div class="page-header">
+            <h2>${c.character.name}</h2>
+          </div>
+              <div class="row">
+                <div class="span6">
+                  ${gear_select(c.equipped[1])}
+                </div>
+                <div class="span6 offset4">
+                  ${gear_select(c.equipped[9])}
+                </div>
+              </div>
+
+              <br/>
+
+              <div class="row">
+                <div class="span6">
+                  ${gear_select(c.equipped[2])}
+                </div>
+                <div class="offset1 span2">
+                  <select class="span2 autopost" name="faction" id="faction">
+                      <option py:for="f in c.factions" value="${f.name}">${f.name}</option>
+                  </select>
+                </div>
+                <div class="span6 offset1">
+                  ${gear_select(c.equipped[10])}
+                </div>
+              </div>
+
+              <br/>
+
+              <div class="row">
+                <div class="span6">
+                  ${gear_select(c.equipped[3])}
+                </div>
+                <div class="offset1 span2">
+                  <select class="span2 autopost" name="advclass" id="advclass">
+                      <option py:for="ac in c.advclasses" value="${ac.name}">${ac.name}</option>
+                  </select>
+                </div>
+                <div class="span6 offset1">
+                  ${gear_select(c.equipped[11])}
+                </div>
+              </div>
+
+              <br/>
+
+              <div class="row">
+                <div class="span6">
+                  ${gear_select(c.equipped[4])}
+                </div>
+                <div class="offset1 span2">
+                  <select class="span2 autopost" name="spec" id="spec">
+                    <option py:for="spec in c.spec" class="${spec.css_class}" value="${spec.name}">${spec.name}</option>
+                  </select>
+                </div>
+                <div class="span6 offset1">
+                  ${gear_select(c.equipped[12])}
+                </div>
+              </div>
+
+              <br/>
+
+              <div class="row">
+                <div class="span6">
+                  ${gear_select(c.equipped[5])}
+                </div>
+                  <!--
+                <div class="offset1 span2">
+                <label class="span2" style="text-align: center">
+                  <input type="checkbox" class="autopost" name="ready" id="ready" value="ready" />
+                  <span>Ready</span>
+                </label>
+                </div>
+                  -->
+                <div class="span6 offset4">
+                  ${gear_select(c.equipped[13])}
+                </div>
+              </div>
+
+              <br/>
+
+              <div class="row">
+                <div class="span6">
+                  ${gear_select(c.equipped[6])}
+                </div>
+                <div class="span6 offset4">
+                  ${gear_select(c.equipped[14])}
+                </div>
+              </div>
+
+              <br/>
+
+              <div class="row">
+                <div class="offset2 span6">
+                  ${gear_select(c.equipped[7])}
+                </div>
+                <div class="span6">
+                  ${gear_select(c.equipped[8])}
+                </div>
+              </div>
+
+          <br/>
+
+          <hr/>
+
+          <div id="advice">
+            <xi:include href="advice.html" />
+          </div>
+     </py:def>
+
+     <py:def function="script()">
+       var character_name = '${c.character.name}';
+    </py:def>
+
+    <xi:include href="_layout.html" />
+</html>

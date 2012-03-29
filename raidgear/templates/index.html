@@ -1,0 +1,27 @@
+<html xmlns:py="http://genshi.edgewall.org/"
+      xmlns:i18n="http://genshi.edgewall.org/i18n"
+      xmlns:xi="http://www.w3.org/2001/XInclude" py:strip="">
+
+    <py:def function="footer()" />
+
+    <py:def function="script()" />
+
+    <py:def function="content()">
+    <div class="page-header">
+        </div>
+        <div class="row">
+          <div class="span14">
+            <form method="POST" action="${h.url(controller='menu', action='character')}">
+                <select name="character" id="character">
+                  <option value="">Select your character name</option>
+                  <option py:for="char in c.chars" value="${char.name}">${char.name}</option>
+                </select>
+                <input name="charname" placeholder="or type it here" />
+                <input class="btn success" type="submit" value="Go" />
+              </form>
+          </div>
+        </div>
+     </py:def>
+
+    <xi:include href="_layout.html" />
+</html>

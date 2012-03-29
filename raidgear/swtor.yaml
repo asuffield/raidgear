@@ -1,0 +1,57 @@
+---
+slots:
+  Head:
+    position: 9
+  Chest:
+    position: 10
+  Gloves:
+    position: 11
+  Belt:
+    position: 12
+  Legs:
+    position: 13
+  Boots:
+    position: 14
+  Ear:
+    position: 1
+  Implant:
+    position: 2
+    count: 2
+  Bracers:
+    position: 4
+  Relic:
+    position: 5
+    count: 2
+  Mainhand:
+    position: 7
+  Offhand:
+    position: 8
+    
+gear:
+  Blues or worse:
+    rank: 0
+  Generic purple at 49+:
+    rank: 1
+  Centurion:
+    rank: 1.8
+    pvp: yes
+  Xenotech:
+    rank: 2
+  Energized:
+    rank: 2
+  Tionese:
+    rank: 2
+  Champion:
+    rank: 2.5
+    pvp: yes
+  Columi:
+    rank: 3
+  Exotech:
+    rank: 3
+  Rakata:
+    rank: 4
+  Battlemaster:
+    rank: 2.8
+    pvp: yes
+  Matrix cube at 50:
+    rank: 3

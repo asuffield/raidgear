@@ -1,0 +1,29 @@
+<html xmlns:py="http://genshi.edgewall.org/"
+      xmlns:i18n="http://genshi.edgewall.org/i18n"
+      xmlns:xi="http://www.w3.org/2001/XInclude" py:strip="">
+
+      <h3>Overall rank for this character's equipment: ${'%.2f' % c.score}</h3>
+      <hr/>
+
+      <h3>Useful equipment for this character in raids and hard mode flashpoints (potential rank gain)</h3>
+
+      <table>
+        <thead>
+          <th>Instance</th>
+          <th>Boss</th>
+          <th>Quality</th>
+          <th>Slot</th>
+        </thead>
+        <tbody>
+            <tr py:for="row in c.advice_rows">
+              <td py:if="row.has_key('instance_rowspan')" rowspan="${row['instance_rowspan']}">${row['drop'].boss.instance.name(c.faction)}
+                (${'%.2f' % c.character.instance_utility(row['drop'].boss.instance)})</td>
+              <td py:if="row.has_key('boss_rowspan')" rowspan="${row['boss_rowspan']}">#${row['drop'].boss.order} ${row['drop'].boss.name(c.faction)}
+                (${'%.2f' % c.character.boss_utility(row['drop'].boss)})</td>
+              <td>${row['drop'].gear.describe()}</td>
+              <td>${row['drop'].slot.name}  (${'%.2f' % c.character.drop_utility(row['drop'])})</td>
+            </tr>
+        </tbody>
+      </table>
+
+</html>

@@ -1,0 +1,72 @@
+<html xmlns:py="http://genshi.edgewall.org/"
+      xmlns:i18n="http://genshi.edgewall.org/i18n"
+      xmlns:xi="http://www.w3.org/2001/XInclude" py:strip="">
+
+    <py:def function="footer()" />
+
+    <py:def function="content()">
+          <div class="page-header">
+            <div class="row">
+              <h2 class="span6">${c.faction.name} raid planner</h2>
+              <span class="span2 legend damage">Damage</span>
+              <span class="span2 legend ranged">Ranged</span>
+              <span class="span2 legend melee">Melee</span>
+              <span class="span2 legend healing">Healing</span>
+              <span class="span2 legend tank">Tank</span>
+            </div>
+          </div>
+
+          <input class="btn info" type="submit" id="add_group" value="Add new group" />
+
+          <h3>Unassigned players</h3>
+
+          <div class="ready_players player_box">
+          </div>
+
+          <div class="group template">
+            <div class="row">
+              <select class="span4 instance">
+                <option value=""></option>
+                <option py:for="i in c.instances" value="${i.id}">${i.name(c.faction)}</option>
+              </select>
+              <select class="span2 mode">
+                <option value=""></option>
+                <option py:for="m in c.modes" value="${m.size}">${m.size} players</option>
+              </select>
+              <label class="span1 players"></label>
+              <label class="span1 score damage"></label>
+              <label class="span1 score ranged"></label>
+              <label class="span1 score melee"></label>
+              <label class="span1 score healing"></label>
+              <label class="span1 score tank"></label>
+              <label class="span1 utility"></label>
+              <span class="span2" style="text-align: right"><input class="btn danger remove_group" type="submit" value="Delete" /></span>
+            </div>
+            <div class="player_box">
+            </div>
+          </div>
+
+          <div class="player_slot template">
+            <span class="score"></span>
+            <span class="name"></span>
+            <span class="advclass"></span>
+          </div>
+    </py:def>
+
+    <py:def function="character(char)">{name: '${char.name}', advclass: '${char.advclass.name}', spec: '${char.spec.css_class}', score: ${char.gearscore()}}</py:def>
+
+    <py:def function="script()">
+          var free_characters = [
+          <py:for each="char in c.free_characters">${character(char)},</py:for>
+          ];
+          var groups = [
+          <py:for each="group in c.groups">
+            {instance: ${group.instance.id}, size: ${group.instance.size}, members: [
+            <py:for each="char in group.characters()">${character(char)},</py:for>
+            ]},
+          </py:for>
+          ];
+    </py:def>
+
+    <xi:include href="_layout.html" />
+</html>

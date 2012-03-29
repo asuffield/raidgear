@@ -1,0 +1,3 @@
+include raidgear/config/deployment.ini_tmpl
+recursive-include raidgear/public *
+recursive-include raidgear/templates *
